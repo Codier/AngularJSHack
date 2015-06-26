@@ -33,9 +33,16 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
-      js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+      // js: {
+      //   files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+      //   tasks: ['newer:jshint:all'],
+      //   options: {
+      //     livereload: '<%= connect.options.livereload %>'
+      //   }
+      // },
+      ts: {
+        files: ['<%= yeoman.app %>/ts_scripts/{,*/}*.ts'],
+        tasks: ['ts'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -60,6 +67,19 @@ module.exports = function (grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      }
+    },
+
+    // Typescript set up.
+    ts: {
+      options: {
+        fast: 'never',
+        // compile: false,
+        comments: true //preserves comments in output.
+      },
+      default: {
+        outDir: "app/scripts",
+        src: ["app/ts_scripts/**/*.ts"]
       }
     },
 
@@ -142,6 +162,10 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      ts: [
+          '<%= yeoman.app %>/scripts',
+          '<%= yeoman.app %>/ts_scripts/{,*/}.baseDir.ts'
+      ],
       server: '.tmp'
     },
 
@@ -394,6 +418,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'clean:ts',
+      'ts',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -417,6 +443,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'clean:ts',
+    'ts',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
