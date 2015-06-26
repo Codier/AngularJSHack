@@ -47,6 +47,10 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         }
       },
+      tsTest: {
+        files: ['test/ts_spec/{,*/}*.ts'],
+        tasks: ['ts:test']
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
@@ -80,6 +84,10 @@ module.exports = function (grunt) {
       default: {
         outDir: "app/scripts",
         src: ["app/ts_scripts/**/*.ts"]
+      },
+      test: {
+        outDir: "test/spec",
+        src: ["test/ts_spec/**/*.ts"]
       }
     },
 
@@ -164,7 +172,8 @@ module.exports = function (grunt) {
       },
       ts: [
           '<%= yeoman.app %>/scripts',
-          '<%= yeoman.app %>/ts_scripts/{,*/}.baseDir.ts'
+          '<%= yeoman.app %>/ts_scripts/{,*/}.baseDir.ts',
+          '<%= yeoman.app %>/test/spec',
       ],
       server: '.tmp'
     },
@@ -435,6 +444,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'clean:ts',
+    'ts:test',
     'concurrent:test',
     'autoprefixer',
     'connect:test',

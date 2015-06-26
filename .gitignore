@@ -5,8 +5,9 @@ dist
 bower_components
 
 app/scripts/*
+test/spec/*
 # Due to issue #77 in grunt-ts
-app/ts_scripts/.baseDir.ts
+.baseDir.ts
 .DS_Store
 
 # DefinitelyTyped

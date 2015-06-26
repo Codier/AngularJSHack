@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../../../typings/angularjs/angular.d.ts" />
 
 'use strict';
 
