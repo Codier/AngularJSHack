@@ -8,3 +8,6 @@ app/scripts/*
 # Due to issue #77 in grunt-ts
 app/ts_scripts/.baseDir.ts
 .DS_Store
+
+# DefinitelyTyped
+typings
